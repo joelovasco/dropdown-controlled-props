@@ -50,7 +50,7 @@ export default function App() {
                           index: items.length
                         })}
                       >
-                        {"Check out our vegtables"}
+                        {"Checkout our vegtables"}
                       </p>
                     )}
                   </>
