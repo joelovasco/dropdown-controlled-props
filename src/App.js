@@ -1,7 +1,6 @@
 import React from "react";
 import Dropdown from "./dropdown/dropdown";
 import items from "./fruits.json";
-import DropdownContext from "./dropdown/dropdown-context/dropdown-context";
 
 export default function App() {
   return (
@@ -31,7 +30,7 @@ export default function App() {
           <Dropdown.Label />
           <Dropdown.Toggle />
         </div>
-        <DropdownContext>
+        <Dropdown.Context>
           {({ getMenuProps, isOpen, getItemProps }) => (
             <div {...getMenuProps()}>
               {isOpen &&
@@ -57,7 +56,7 @@ export default function App() {
                 ))}
             </div>
           )}
-        </DropdownContext>
+        </Dropdown.Context>
       </Dropdown>
     </div>
   );

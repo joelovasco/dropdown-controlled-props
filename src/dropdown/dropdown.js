@@ -5,8 +5,9 @@ import DropdownMenu from "./dropdown-menu/dropdown-menu";
 import DropdownLabel from "./dropdown-label/dropdown-label";
 import DropdownToggle from "./dropdown-toggle/dropdown-toggle";
 import DropdownItem from "./dropdown-item/dropdown-item";
+import DropdownContext from "./dropdown-context/dropdown-context";
 
-const DropdownContext = createContext();
+const DDContext = createContext();
 
 const extendGetter = (getter, controlledProps) => additionalProps =>
   getter({
@@ -30,7 +31,7 @@ const setClassList = (block, element, modifier) => {
 };
 
 const useDropdownContext = () => {
-  const context = useContext(DropdownContext);
+  const context = useContext(DDContext);
   if (!context) {
     throw new Error(
       "Dropdown compound components cannot be rendered outside the Dropdown component"
@@ -83,7 +84,7 @@ const Dropdown = ({
   });
 
   return (
-    <DropdownContext.Provider
+    <DDContext.Provider
       value={{
         isOpen,
         getMenuProps,
@@ -94,10 +95,11 @@ const Dropdown = ({
       }}
     >
       {children}
-    </DropdownContext.Provider>
+    </DDContext.Provider>
   );
 };
 
+Dropdown.Context = DropdownContext;
 Dropdown.Menu = DropdownMenu;
 Dropdown.Toggle = DropdownToggle;
 Dropdown.Label = DropdownLabel;
