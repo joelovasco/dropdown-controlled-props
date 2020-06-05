@@ -1,0 +1,19 @@
+.purple-text {
+  color: purple;
+  font-weight: 700;
+  list-style: none;
+}
+
+.eb-dropdown__item {
+  color: #666;
+}
+
+.test {
+  &__item {
+    color: coral;
+
+    &.purple-text {
+      @extend .purple-text
+    }
+  }
+}

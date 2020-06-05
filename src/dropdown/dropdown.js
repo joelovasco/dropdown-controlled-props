@@ -9,11 +9,20 @@ import DropdownContext from "./dropdown-context/dropdown-context";
 
 const DDContext = createContext();
 
-const extendGetter = (getter, controlledProps) => additionalProps =>
-  getter({
+const extendGetter = (getter, controlledProps) => ({
+  className: componentSpecficClassName,
+  ...restOfAdditionalProps
+} = {}) => {
+  const { className: classList, ...rest } = getter({
     ...controlledProps,
-    ...additionalProps
+    ...restOfAdditionalProps
   });
+
+  return {
+    ...rest,
+    className: cn(classList, componentSpecficClassName)
+  };
+};
 
 const setClassList = (block, element, modifier) => {
   const baseClassList = cn(
@@ -48,15 +57,12 @@ const Dropdown = ({
   items
 }) => {
   const {
-    isOpen,
     getItemProps: downshiftGetItemProps,
     getLabelProps: downshiftGetLabelProps,
     getToggleButtonProps: downshiftGetToggleButtonProps,
     getMenuProps: downshiftGetMenuProps,
-    ...rest
-  } = useSelect({
-    items
-  });
+    ...downshiftProps
+  } = useSelect({ items });
 
   const controlledProps = {
     "data-consumer-block-class-name": consumerBlockClassName,
@@ -86,12 +92,11 @@ const Dropdown = ({
   return (
     <DDContext.Provider
       value={{
-        isOpen,
         getMenuProps,
         getLabelProps,
         getToggleButtonProps,
         getItemProps,
-        rest
+        ...downshiftProps
       }}
     >
       {children}

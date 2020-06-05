@@ -1,12 +1,13 @@
 import React from "react";
 import Dropdown from "./dropdown/dropdown";
 import items from "./fruits.json";
+import "./styles.scss";
 
 export default function App() {
   return (
     <div className="App">
-      <p>COMPOUND EXMAPLE</p>
-      <Dropdown items={items}>
+      <p>COMPOUND EXAMPLE</p>
+      <Dropdown items={items} className="test" type="beta">
         {/* Probably makes sense to buildout some sort of wrapper for the label and toggle lockup */}
         <div>
           <Dropdown.Label />
@@ -18,12 +19,14 @@ export default function App() {
               key={`${item.name}-${index}`}
               item={item.name}
               index={index}
+              className={item.name === "Grape" && "purple-text"}
             />
           ))}
         </Dropdown.Menu>
       </Dropdown>
+
       <hr />
-      <p>CONTEXT EXMAPLE</p>
+      <p>COMPOUND AND CONTEXT EXAMPLE</p>
       <Dropdown items={items}>
         {/* Probably makes sense to buildout some sort of wrapper for the label and toggle lockup */}
         <div>
@@ -32,7 +35,7 @@ export default function App() {
         </div>
         <Dropdown.Context>
           {({ getMenuProps, isOpen, getItemProps }) => (
-            <div {...getMenuProps()}>
+            <ul {...getMenuProps()}>
               {isOpen &&
                 items.map((item, index) => (
                   <>
@@ -43,18 +46,19 @@ export default function App() {
                     />
 
                     {index === items.length - 1 && (
-                      <p
+                      <li
+                        key={`${item.name}-${items.lenth}`}
                         {...getItemProps({
                           item: "Check out our vegtables",
                           index: items.length
                         })}
                       >
-                        {"Checkout our vegtables"}
-                      </p>
+                        <button>{"Checkout our vegtables"}</button>
+                      </li>
                     )}
                   </>
                 ))}
-            </div>
+            </ul>
           )}
         </Dropdown.Context>
       </Dropdown>
