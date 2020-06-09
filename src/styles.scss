@@ -6,7 +6,12 @@
 
 .eb-dropdown__item {
   color: #666;
+
+  &--highlighted {
+    background: #bde4ff
+  }
 }
+
 
 .test {
   &__item {

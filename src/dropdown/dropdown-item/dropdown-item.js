@@ -1,12 +1,24 @@
 import React from "react";
+import cn from "classnames";
 import { useDropdownContext } from "../dropdown";
 
-const DropdownItem = ({ item, index, ...rest }) => {
-  const { getItemProps, highlightedIndex } = useDropdownContext();
+const DropdownItem = ({ item, index, className, ...rest }) => {
+  const {
+    getItemProps,
+    highlightedIndex,
+    getBlocksWith
+  } = useDropdownContext();
   return (
     <li
-      {...getItemProps({ item, index, ...rest })}
-      style={highlightedIndex === index ? { backgroundColor: "#bde4ff" } : {}}
+      {...getItemProps({
+        item,
+        index,
+        className: cn(
+          highlightedIndex === index && getBlocksWith("__item--highlighted"),
+          className
+        ),
+        ...rest
+      })}
     >
       {item}
     </li>
